@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko Online</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #a32d2d;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .login-form {
+            width: 300px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+        }
+
+        .login-form h2 {
+            text-align: center;
+        }
+
+        .login-form input[type="text"],
+        .login-form input[type="password"] {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+        }
+
+        .login-form input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Toko Aogiri</h1>
+    </div>
+
+    <div class="login-form" id="login">
+        <form onsubmit="return validateLogin()">
+            <h2>Login</h2>
+            <label for="username">Nama Pengguna:</label><br>
+            <input type="text" id="username" name="username" required><br>
+            <label for="password">Kata Sandi:</label><br>
+            <input type="password" id="password" name="password" required><br>
+            <input type="submit" value="Masuk">
+            <div class="error-message" id="error-message"></div>
+        </form>
+    </div>
+
+    <script>
+        function validateLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+
+            const validUsername = 'alvan';
+            const validPassword = 'alvan123';
+
+            if (username === validUsername && password === validPassword) {
+                window.location.href = 'beranda.html';
+                return false;
+            } else {
+                errorMessage.textContent = 'Nama pengguna atau kata sandi salah. Silakan coba lagi.';
+                return false;
+            }
+        }
+    </script>
+
+</body>
+
+</html>

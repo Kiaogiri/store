@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aogiri Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header and Navigation */
+        .header {
+            background-color: #ff0000;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #444;
+            padding: 10px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+        }
+
+        .nav a:hover {
+            background-color: #555;
+        }
+
+        /* Search Filter */
+        .search-container {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .search-container input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border: 1px solid #ccc;
+        }
+
+        .search-container select {
+            padding: 10px;
+            width: 200px;
+            border: 1px solid #ccc;
+        }
+
+        .search-container button {
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            background-color: #555;
+        }
+
+        /* Product List */
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+            margin: 10px;
+        }
+
+        .product img {
+            width: 100%;
+            height: 150px;
+        }
+
+        .product h3 {
+            margin: 10px 0;
+        }
+
+        .product button {
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .product button:hover {
+            background-color: #555;
+        }
+
+        /* Cart Section */
+        .cart-container {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .cart-container h2 {
+            text-align: center;
+        }
+
+        .cart-items {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .cart-items li {
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+        }
+
+        .cart-total {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Online Store</h1>
+    </div>
+
+    <div class="nav">
+        <a href="beranda.html">Beranda</a>
+        <a href="cart.html">Cart</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="search-container" id="home">
+        <h2>Find Your Product</h2>
+        <input type="text" id="search-bar" placeholder="Search for products...">
+        <select id="category-filter">
+            <option value="all">All Categories</option>
+            <option value="electronics">Electronics</option>
+            <option value="accessories">Accessories</option>
+        </select>
+        <button onclick="filterProducts()">Search</button>
+    </div>
+
+    <div class="product-container" id="products">
+        <div class="product" data-category="electronics">
+            <img src="hp.png" alt="Product Image">
+            <h3>samsung A25</h3>
+            <p>Rp 4.500.000</p>
+            <button onclick="addToCart('samsung A25', 4500000)">Add to Cart</button>
+        </div>
+        <div class="product" data-category="accessories">
+            <img src="TWS.png" alt="Product Image">
+            <h3>TWS</h3>
+            <p>Rp 150.000</p>
+            <button onclick="addToCart('TWS', 150000)">Add to Cart</button>
+        </div>
+        <div class="product" data-category="accessories">
+            <img src="jam tangan.png" alt="Product Image">
+            <h3>Watch</h3>
+            <p>Rp 750.000</p>
+            <button onclick="addToCart('Watch', 750000)">Add to Cart</button>
+        </div>
+        <div class="product" data-category="electronics">
+            <img src="lapto.png" alt="Product Image">
+            <h3>Laptop</h3>
+            <p>Rp 12.000.000</p>
+            <button onclick="addToCart('Laptop', 12000000)">Add to Cart</button>
+        </div>
+    </div>
+
+    <script>
+        function addToCart(productName, productPrice) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.push({ name: productName, price: productPrice });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            alert(`${productName} telah ditambahkan ke keranjang.`);
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById('search-bar').value.toLowerCase();
+            const category = document.getElementById('category-filter').value;
+            const products = document.querySelectorAll('.product');
+
+            products.forEach(product => {
+                const productName = product.querySelector('h3').textContent.toLowerCase();
+                const productCategory = product.getAttribute('data-category');
+
+                if ((productName.includes(searchTerm) || searchTerm === '') &&
+                    (productCategory === category || category === 'all')) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

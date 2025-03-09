@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart - Aogiri Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #f10606;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #444;
+            padding: 10px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+        }
+
+        .nav a:hover {
+            background-color: #555;
+        }
+
+        .cart-container {
+            margin: 20px;
+            text-align: center;
+        }
+
+        .cart-container h2 {
+            text-align: center;
+        }
+
+        .cart-items {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .cart-items li {
+            border-bottom: 1px solid #ccc;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-items button {
+            background-color: #d9534f;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .cart-items button:hover {
+            background-color: #c9302c;
+        }
+
+        .cart-total {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .checkout-button {
+            margin-top: 20px;
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .checkout-button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Online Store</h1>
+    </div>
+
+    <div class="nav">
+        <a href="beranda.html">Beranda</a>
+        <a href="cart.html">Cart</a>
+        <a href="contact.html">Contact</a>
+    </div>
+
+    <div class="cart-container" id="cart">
+        <h2>Your Cart</h2>
+        <ul class="cart-items" id="cart-items"></ul>
+        <p class="cart-total" id="cart-total">Total: Rp 0</p>
+        <button class="checkout-button" onclick="checkout()">Checkout</button>
+    </div>
+
+    <script>
+        function formatRupiah(amount) {
+            return 'Rp ' + amount.toLocaleString('id-ID');
+        }
+
+        function displayCart() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalContainer = document.getElementById('cart-total');
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cartItemsContainer.innerHTML = '';
+
+            let total = 0;
+            cart.forEach((item, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${item.name} - ${formatRupiah(item.price)}`;
+
+                const removeButton = document.createElement('button');
+                removeButton.textContent = 'Hapus';
+                removeButton.onclick = () => removeFromCart(index);
+
+                listItem.appendChild(removeButton);
+                cartItemsContainer.appendChild(listItem);
+                total += item.price;
+            });
+
+            cartTotalContainer.textContent = `Total: ${formatRupiah(total)}`;
+        }
+
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCart();
+        }
+
+        function checkout() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Keranjang belanja Anda kosong!');
+            } else {
+                alert('Pesanan Anda akan dikirim. Terima kasih telah berbelanja!');
+                localStorage.removeItem('cart');
+                displayCart();
+            }
+        }
+
+        window.onload = displayCart;
+    </script>
+</body>
+
+</html>
