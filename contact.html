@@ -53,13 +53,25 @@
             background-color: #f1f1f1;
             border-radius: 5px;
         }
+        .cancel-button {
+            background-color: red;
+            margin-top: 10px;
+        }
+        .cancel-button:hover {
+            background-color: darkred;
+        }
     </style>
+    <script>
+        function goToBeranda() {
+            window.location.href = "beranda.html";
+        }
+    </script>
 </head>
 <body>
 
 <div class="container">
     <h1>Kontak Kami</h1>
-    <form action="beranda.html" method="post">
+    <form action="beranda.html" method="get">
         <label for="name">Nama:</label>
         <input type="text" id="name" name="name" required>
 
@@ -71,17 +83,14 @@
 
         <button type="submit">Kirim Pesan</button>
     </form>
-    <form action="beranda.html" method="post">
-        <br>
-    <button style="background-color: red;">Batal</button>
-    </form>
 
+    <button class="cancel-button" onclick="goToBeranda()">Batal</button>
 
     <div class="contact-info">
         <h2>Informasi Kontak</h2>
         <p><strong>Telepon:</strong> (021) 123-4567</p>
         <p><strong>Email:</strong> info@Aogiristore.com</p>
-        <p><strong>Alamat:</strong> Jl. rawabadak No. 12, Jakarta utara, Indonesia</p>
+        <p><strong>Alamat:</strong> Jl. Rawabadak No. 12, Jakarta Utara, Indonesia</p>
     </div>
 </div>
 
