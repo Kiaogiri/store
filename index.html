@@ -1,98 +1,357 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toko Online</title>
+    <title>Lanpedia - Top Up Mobile Legends | Termurah & Terlengkap</title>
     <style>
+        /* CSS Styling dengan Tema Biru Kehitaman */
+        :root {
+            --primary-bg: #1A237E; /* Biru Kehitaman Gelap - Akan diatasi oleh hero-banner */
+            --card-bg: #2C3E50;    /* Biru Abu Tua untuk Kartu */
+            --accent-color: #E60000; /* Merah ML */
+            --text-light: #ECF0F1;   /* Text Putih Abu */
+            --border-light: #526374;
+            --step-bg: #34495E;      /* Latar belakang langkah */
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #0d1a2f; /* Sedikit lebih gelap dari primary-bg untuk body default */
             margin: 0;
-            padding: 0;
+            padding: 0; /* Penting: Hapus padding body agar banner bisa full width */
+            color: var(--text-light);
+            line-height: 1.6;
         }
 
-        .header {
-            background-color: #a32d2d;
-            color: white;
-            padding: 15px;
-            text-align: center;
-        }
-
-        .login-form {
-            width: 300px;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-        }
-
-        .login-form h2 {
-            text-align: center;
-        }
-
-        .login-form input[type="text"],
-        .login-form input[type="password"] {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-        }
-
-        .login-form input[type="submit"] {
+        /* Hero Banner untuk Gambar Latar Belakang Header */
+        .hero-banner {
             width: 100%;
-            padding: 10px;
-            background-color: #333;
-            color: white;
-            border: none;
+            height: 300px; /* Tinggi hero banner, sesuaikan jika perlu */
+            background-image: url('banner_ml.jpg'); /* Ganti dengan nama file gambar Anda */
+            background-size: cover; /* Pastikan gambar menutupi seluruh area */
+            background-position: center center; /* Posisikan gambar di tengah */
+            background-repeat: no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            margin-bottom: 30px; /* Jarak antara hero banner dan container form */
+            
+            /* Overlay agar teks tetap terbaca */
+            z-index: 1; /* Pastikan overlay di atas gambar */
         }
 
-        .error-message {
-            color: red;
-            text-align: center;
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* Overlay gelap 40% */
+            z-index: 0; /* Pastikan overlay di bawah teks */
+        }
+
+        .hero-banner * {
+            position: relative; /* Pastikan teks berada di atas overlay */
+            z-index: 1;
+        }
+
+        .hero-banner h1 {
+            font-size: 3.5em; /* Ukuran font lebih besar untuk judul utama */
+            color: var(--accent-color);
+            margin: 0;
+            padding-bottom: 10px;
+            border-bottom: 4px solid var(--text-light);
+            display: inline-block;
+        }
+
+        .hero-banner p {
+            font-size: 1.2em;
+            color: var(--text-light);
             margin-top: 10px;
         }
+
+        .container {
+            max-width: 900px;
+            margin: -100px auto 20px auto; /* Menaikkan container agar tumpang tindih dengan banner */
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative; /* Penting untuk z-index */
+            z-index: 2; /* Pastikan container di atas hero banner */
+        }
+
+        /* --- Sisa CSS lainnya tetap sama seperti sebelumnya --- */
+        .section {
+            margin-bottom: 25px;
+            padding: 20px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            background-color: var(--step-bg);
+        }
+
+        .section h2 {
+            margin-top: 0;
+            color: var(--text-light);
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--accent-color);
+            padding-left: 10px;
+        }
+        
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid var(--border-light);
+            border-radius: 5px;
+            box-sizing: border-box;
+            background-color: #3f51b5; /* Biru input */
+            color: var(--text-light);
+        }
+
+        .option-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .option-card {
+            background-color: var(--card-bg);
+            border: 2px solid var(--border-light);
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .option-card:hover {
+            border-color: var(--text-light);
+        }
+
+        .option-card.selected {
+            border-color: var(--accent-color);
+            background-color: #5d6f81;
+            box-shadow: 0 0 10px rgba(230, 0, 0, 0.4);
+            transform: scale(1.02);
+        }
+        
+        .option-card h3 { color: var(--accent-color); margin: 0 0 5px 0; font-size: 1em;}
+        .option-card p { color: #f1c40f; font-weight: bold; margin: 0; font-size: 0.9em;}
+        
+        #payment-summary {
+            margin-top: 25px; padding: 20px; border-radius: 8px;
+            background-color: #2c3e50; 
+            border: 1px dashed var(--accent-color);
+            text-align: center;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.3em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(230, 0, 0, 0.3);
+            margin-top: 15px;
+        }
+        .submit-btn:hover {
+            background-color: #b30000;
+        }
+
+        .cs-info a { color: #f1c40f; text-decoration: none; }
     </style>
 </head>
-
 <body>
-
-    <div class="header">
-        <h1>Online store</h1>
+    <div class="hero-banner">
+        <h1>LANPEDIA</h1>
+        <p>Top Up Diamond Mobile Legends | Proses Cepat & Aman</p>
     </div>
 
-    <div class="login-form" id="login">
-        <form onsubmit="return validateLogin()">
-            <h2>Login</h2>
-            <label for="username">Nama Pengguna:</label><br>
-            <input type="text" id="username" name="username" required><br>
-            <label for="password">Kata Sandi:</label><br>
-            <input type="password" id="password" name="password" required><br>
-            <input type="submit" value="Masuk">
-            <div class="error-message" id="error-message"></div>
+    <div class="container">
+        <form id="topUpForm"> 
+            
+            <div class="section">
+                <h2>1. ID Akun</h2>
+                <label for="userId" style="color: var(--text-light);">User ID</label>
+                <input type="text" id="userId" name="userId" placeholder="Cth: 123456789" required>
+                
+                <label for="serverNum" style="color: var(--text-light);">Server ID</label>
+                <input type="text" id="serverNum" name="serverNum" placeholder="Cth: 2058" required>
+            </div>
+
+            <div class="section">
+                <h2>2. Nominal Diamond</h2>
+                <div class="option-grid diamond-options">
+                    <div class="option-card" data-diamond="53" data-price="15000">
+                        <h3>53 Diamond</h3><p>Rp 15.000</p>
+                    </div>
+                    <div class="option-card" data-diamond="106" data-price="29000">
+                        <h3>106 Diamond</h3><p>Rp 29.000</p>
+                    </div>
+                    <div class="option-card" data-diamond="267" data-price="75000">
+                        <h3>267 Diamond</h3><p>Rp 75.000</p>
+                    </div>
+                    <div class="option-card" data-diamond="535" data-price="145000">
+                        <h3>535 Diamond</h3><p>Rp 145.000</p>
+                    </div>
+                    <div class="option-card" data-diamond="1070" data-price="285000">
+                        <h3>1070 Diamond</h3><p>Rp 285.000</p>
+                    </div>
+                    <div class="option-card" data-diamond="2180" data-price="570000">
+                        <h3>2180 Diamond</h3><p>Rp 570.000</p>
+                    </div>
+                </div>
+                <input type="hidden" id="selectedDiamond" name="diamond" required>
+                <input type="hidden" id="selectedPrice" name="price" required>
+            </div>
+
+            <div class="section">
+                <h2>3. Metode Pembayaran</h2>
+                <div class="option-grid payment-options">
+                    <div class="option-card" data-method="QRIS" data-type="qris">
+                        <h3>QRIS</h3><p>Semua Aplikasi</p>
+                    </div>
+                    <div class="option-card" data-method="BCA-VA" data-type="va">
+                        <h3>BCA VA</h3><p>Virtual Account</p>
+                    </div>
+                    <div class="option-card" data-method="MANDIRI-VA" data-type="va">
+                        <h3>Mandiri VA</h3><p>Virtual Account</p>
+                    </div>
+                    <div class="option-card" data-method="DANA" data-type="e-wallet">
+                        <h3>DANA</h3><p>E-Wallet</p>
+                    </div>
+                    <div class="option-card" data-method="GOPAY" data-type="e-wallet">
+                        <h3>GOPAY</h3><p>E-Wallet</p>
+                    </div>
+                    <div class="option-card" data-method="TRANSFER-BCA" data-type="bank">
+                        <h3>BCA</h3><p>Bank Transfer</p>
+                    </div>
+                    <div class="option-card" data-method="TRANSFER-BRI" data-type="bank">
+                        <h3>BRI</h3><p>Bank Transfer</p>
+                    </div>
+                </div>
+                <input type="hidden" id="selectedPayment" name="method" required>
+                <input type="hidden" id="paymentType" name="type" required>
+            </div>
+            
+            <div class="section">
+                <h2>4. Kontak & Bayar</h2>
+                <label for="email" style="color: var(--text-light);">Email / Nomor WA</label>
+                <input type="email" id="email" name="email" placeholder="Masukkan kontak aktif Anda" required>
+
+                <div id="payment-summary">
+                    Total Pembayaran: <span id="displayTotal" style="color: var(--accent-color); font-weight: bold;">Pilih Diamond</span>
+                </div>
+
+                <button type="submit" class="submit-btn" id="payButton" disabled>
+                    BAYAR SEKARANG (Rp 0)
+                </button>
+            </div>
         </form>
+
+        <div class="cs-info" style="text-align: center; margin-top: 30px;">
+            <p>Butuh Bantuan? 📞 WhatsApp: <a href="https://wa.me/6281234567890" target="_blank">0812-3456-7890</a></p>
+        </div>
+
     </div>
 
     <script>
-        function validateLogin() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorMessage = document.getElementById('error-message');
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('topUpForm');
+            const diamondOptions = document.querySelectorAll('.diamond-options .option-card');
+            const paymentOptions = document.querySelectorAll('.payment-options .option-card');
+            const selectedDiamondInput = document.getElementById('selectedDiamond');
+            const selectedPriceInput = document.getElementById('selectedPrice');
+            const selectedPaymentInput = document.getElementById('selectedPayment');
+            const paymentTypeInput = document.getElementById('paymentType');
+            const displayTotal = document.getElementById('displayTotal');
+            const payButton = document.getElementById('payButton');
 
-            const validUsername = 'alvan';
-            const validPassword = 'alvan123';
+            // Fungsi untuk mengaktifkan tombol BAYAR
+            function updatePayButton() {
+                const diamondSelected = selectedDiamondInput.value;
+                const paymentSelected = selectedPaymentInput.value;
+                const price = selectedPriceInput.value;
 
-            if (username === validUsername && password === validPassword) {
-                window.location.href = 'beranda.html';
-                return false;
-            } else {
-                errorMessage.textContent = 'Nama pengguna atau kata sandi salah. Silakan coba lagi.';
-                return false;
+                if (diamondSelected && paymentSelected && price) {
+                    payButton.disabled = false;
+                    const formattedPrice = price.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    payButton.textContent = `BAYAR SEKARANG (Rp ${formattedPrice})`;
+                } else {
+                    payButton.disabled = true;
+                    displayTotal.textContent = `Pilih Diamond`;
+                    payButton.textContent = `BAYAR SEKARANG (Rp 0)`;
+                }
             }
-        }
+
+            // Setup Pemilihan Diamond
+            diamondOptions.forEach(card => {
+                card.addEventListener('click', function() {
+                    diamondOptions.forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+
+                    const diamond = this.getAttribute('data-diamond');
+                    const price = this.getAttribute('data-price');
+                    
+                    selectedDiamondInput.value = diamond;
+                    selectedPriceInput.value = price;
+                    
+                    const formattedPrice = price.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                    displayTotal.textContent = `Rp ${formattedPrice}`;
+                    
+                    updatePayButton();
+                });
+            });
+
+            // Setup Pemilihan Pembayaran
+            paymentOptions.forEach(card => {
+                card.addEventListener('click', function() {
+                    paymentOptions.forEach(c => c.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    selectedPaymentInput.value = this.getAttribute('data-method');
+                    paymentTypeInput.value = this.getAttribute('data-type');
+                    updatePayButton();
+                });
+            });
+
+            // Logika Submit: Menentukan tujuan halaman
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                if (payButton.disabled) return;
+
+                const method = selectedPaymentInput.value;
+                const type = paymentTypeInput.value;
+                const price = selectedPriceInput.value;
+                const diamond = selectedDiamondInput.value;
+                const userId = document.getElementById('userId').value;
+                const serverNum = document.getElementById('serverNum').value;
+                const email = document.getElementById('email').value;
+
+                // Membangun Query String
+                const queryString = `?userId=${userId}&serverNum=${serverNum}&diamond=${diamond}&price=${price}&method=${method}&email=${email}&type=${type}`;
+                
+                let targetPage = 'lanpedia_qris_va.html'; // Semua diarahkan ke halaman detail bayar
+
+                // Arahkan ke halaman target dengan membawa data transaksi
+                window.location.href = targetPage + queryString;
+            });
+        });
     </script>
-
 </body>
-
 </html>
